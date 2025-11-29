@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOVA | Customer Care Assistant</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  </head>
+  <body>
+    <!-- 3D Background Container -->
+    <div id="canvas-container"></div>
+
+    <div class="container">
+      <!-- Sidebar / Control Panel -->
+      <aside class="sidebar">
+        <div class="logo">
+          <h1>NOVA</h1>
+          <p>Virtual Assistant</p>
+        </div>
+
+        <nav class="controls">
+          <button id="btn-dashboard" class="active">
+            <i class="fas fa-home"></i> Dashboard
+          </button>
+          <button id="btn-products">
+            <i class="fas fa-shoe-prints"></i> Products
+          </button>
+          <button id="btn-appointments">
+            <i class="fas fa-calendar-check"></i> Appointments
+          </button>
+          <button id="btn-settings"><i class="fas fa-cog"></i> Settings</button>
+        </nav>
+
+        <div class="status-panel">
+          <div class="status-item">
+            <span class="label">System</span>
+            <span class="value online">Online</span>
+          </div>
+          <div class="status-item">
+            <span class="label">Voice</span>
+            <span class="value ready">Ready</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Header -->
+        <header>
+          <div class="user-welcome">
+            <h2>Welcome back, User</h2>
+            <p>How can I assist you today?</p>
+          </div>
+          <div class="actions">
+            <button id="btn-call-support" class="action-btn">
+              <i class="fas fa-phone-alt"></i> Call Support
+            </button>
+          </div>
+        </header>
+
+        <!-- Dynamic Content Section -->
+        <section id="content-area" class="content-area">
+          <!-- Chat / Voice Interface (Default) -->
+          <div class="nova-interface" id="dashboard-section">
+            <div class="visualizer-container">
+              <!-- Replaced CSS visualizer with 3D Canvas placeholder or overlay -->
+              <div id="nova-3d-avatar"></div> 
+            </div>
+
+            <div class="chat-display" id="chat-display">
+              <div class="message system">
+                <p>Hello! I am Nova. You can speak to me or type below.</p>
+              </div>
+            </div>
+
+            <div class="input-area">
+              <button id="btn-mic" class="mic-btn">
+                <i class="fas fa-microphone"></i>
+              </button>
+              <input
+                type="text"
+                id="text-input"
+                placeholder="Type a command or ask a question..."
+              />
+              <button id="btn-send" class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Products Section (Hidden by default) -->
+          <div id="products-section" class="products-grid hidden">
+            <div class="section-header">
+                <button id="btn-back-products" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+                <h3>Our Collection</h3>
+            </div>
+            <div class="products-scroll-container">
+                <div class="product-card">
+                <div class="product-image" style="background-image: url('{{ url_for('static', filename='images/air_nova_1.png') }}');"></div>
+                <h3>Air Nova 1</h3>
+                <p>The future of comfort.</p>
+                <span class="price">$120</span>
+                </div>
+                <div class="product-card">
+                <div class="product-image" style="background-image: url('{{ url_for('static', filename='images/speed_runner.png') }}');"></div>
+                <h3>Speed Runner</h3>
+                <p>Built for velocity.</p>
+                <span class="price">$150</span>
+                </div>
+                <div class="product-card">
+                <div class="product-image" style="background-image: url('{{ url_for('static', filename='images/urban_glide.png') }}');"></div>
+                <h3>Urban Glide</h3>
+                <p>Style meets street.</p>
+                <span class="price">$95</span>
+                </div>
+            </div>
+          </div>
+
+          <!-- Appointments Section -->
+          <div id="appointments-section" class="settings-panel hidden">
+              <h3>Book Appointment</h3>
+              <form id="appointment-form">
+                  <div class="setting-item">
+                      <label>Name</label>
+                      <input type="text" id="apt-name" placeholder="Your Name" required style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px; border-radius: 5px;">
+                  </div>
+                  <div class="setting-item">
+                      <label>Phone</label>
+                      <input type="tel" id="apt-phone" placeholder="+123..." required style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px; border-radius: 5px;">
+                  </div>
+                  <div class="setting-item">
+                      <label>Shoe Model</label>
+                      <select id="apt-shoe" style="background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.2); padding: 5px; border-radius: 5px;">
+                          <option value="Air Nova 1">Air Nova 1</option>
+                          <option value="Speed Runner">Speed Runner</option>
+                          <option value="Urban Glide">Urban Glide</option>
+                      </select>
+                  </div>
+                  <div class="setting-item">
+                      <label>Date</label>
+                      <input type="date" id="apt-date" required style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px; border-radius: 5px;">
+                  </div>
+                  <button type="submit" class="action-btn" style="margin-top: 20px; width: 100%;">Confirm Booking</button>
+              </form>
+          </div>
+
+          <!-- Settings Section (Hidden by default) -->
+          <div id="settings-section" class="settings-panel hidden">
+              <h3>Settings</h3>
+              <div class="setting-item">
+                  <label>Voice Output</label>
+                  <input type="checkbox" checked>
+              </div>
+              <div class="setting-item">
+                  <label>Notifications</label>
+                  <input type="checkbox" checked>
+              </div>
+              <div class="setting-item">
+                  <label>Theme</label>
+                  <select>
+                      <option>Dark (Default)</option>
+                      <option>Light</option>
+                  </select>
+              </div>
+          </div>
+
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
